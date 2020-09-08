@@ -1,16 +1,19 @@
+venv/*
+.idea/*
+
 # Default ignored files
 /workspace.xml
-/../../../shelter-app/[ARCH_MARCH]validate-services/
-/../../../data-structures/
-/../../../flight-delays/
-/../../../javagames/
-/../../../shelter-app/June2020/
-/../../../knights-tour/
-/../../../lecture-dictionary/
+/../../shelter-app/[ARCH_MARCH]validate-services/
+/../../data-structures/
+/../../flight-delays/
+/../../javagames/
+/../../shelter-app/June2020/
+/../../knights-tour/
+/../../lecture-dictionary/
 /../
-/../../../pyaudio/
-/../../../pygames/
-/../../../shelter-app/[tmp, delete July 1] LastYam
+/../../pyaudio/
+/../../pygames/
+/../../shelter-app/[tmp, delete July 1] LastYam
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/packaging/__about__.py
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_internal/cli/__init__.py
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_internal/commands/__init__.py
@@ -355,10 +358,10 @@
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/packaging/version.py
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/distlib/w32.exe
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/distlib/w64.exe
-/../../../shelter-app/test-mongo-files/Wa_Copy.csv
+/../../shelter-app/test-mongo-files/Wa_Copy.csv
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/urllib3/util/wait.py
-/../../../shelter-app/test-mongo-files/WashingtonState(King, King, Pierce, Snohomish).csv
-/../../../shelter-app/WashingtonState(King, King, Pierce, Snohomish).csv
+/../../shelter-app/test-mongo-files/WashingtonState(King, King, Pierce, Snohomish).csv
+/../../shelter-app/WashingtonState(King, King, Pierce, Snohomish).csv
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_internal/commands/wheel.py
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_internal/wheel.py
 /../venv/Lib/site-packages/pip-19.0.3-py3.7.egg/pip/_vendor/distlib/wheel.py
