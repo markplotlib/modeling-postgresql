@@ -2,7 +2,10 @@
 
 This project builds an ETL (*extract transform load*) pipeline to perform big data operations for a fictitious streaming music app, Sparkify. This ETL pipeline uses a PostgreSQL database optimized for read queries, i.e. OLAP (Online Analytical Processing).
 
-This ETL pipeline employs a **star schema** for the database. This star schema has a log table of `songplays` as its **fact table** at the star center. The **dimension tables**, connected at the star's outer peripheries, are tables named for `users`, `songs`, `artists`, and `time` (timestamps). Artificially constructed data, stored in JSON format, illustrate musical data from 71 files and song play data from 30 event log files, spanning the month of November 2018. (Note: all JSON keys must be strings.)
+This ETL pipeline employs a **star schema** for the database. This star schema has a log table of `songplays` as its **fact table** at the star center. Data stored in JSON format illustrate song play data from 30 event log files, spanning the month of November 2018. This data is artificially produced using [eventsim](https://github.com/Interana/eventsim).
+
+The **dimension tables**, situated at the star's peripheries, are tables named for `users`, `songs`, `artists`, and `time` (timestamps). This real musical data, stored in 71 JSON files, comes from the [Million Song Dataset](http://millionsongdataset.com/).
+
 
 # Execution Instructions
 
