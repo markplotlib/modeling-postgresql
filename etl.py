@@ -11,7 +11,7 @@ def process_song_file(cur, filepath):
     """
     Performs ETL processes to construct dimension tables of songs and artists.
     
-    :param cur: cursor of database connection 
+    :param cur: cursor object for PostgreSQL command execution in Python 
     :param filepath: string file name and directory 
     :return: none
     """""
@@ -31,7 +31,7 @@ def process_log_file(cur, filepath):
     """
     Performs ETL processes to construct fact table of songplays, and dimension tables of users and time.
 
-    :param cur: cursor of database connection 
+    :param cur: cursor object for PostgreSQL command execution in Python 
     :param filepath: string file name and directory 
     :return: none
     """""
@@ -79,7 +79,7 @@ def process_log_file(cur, filepath):
 
 def process_data(cur, conn, filepath, func):
     """
-    :param cur: cursor of database connection
+    :param cur: cursor object for PostgreSQL command execution in Python
     :param conn: database connection object
     :param filepath: string file name and directory
     :param func: callable, to process file
