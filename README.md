@@ -1,4 +1,4 @@
-# project summary
+# ETL Data Modeling: *Sparkify* Streaming Music
 
 This project builds an ETL (*extract transform load*) pipeline to perform big data operations for a fictitious streaming music app, Sparkify. This ETL pipeline uses a PostgreSQL database optimized for read queries, i.e. OLAP (Online Analytical Processing).
 
