@@ -8,22 +8,52 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 
 # CREATE TABLES
-
-songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (songplay_id int, start_time timestamp, 
-                            user_id int, level int, song_id int, artist_id int, 
+songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (start_time bigint, 
+                            userId varchar, level varchar, song_id varchar, artist_id varchar, 
                             session_id int, location varchar , user_agent varchar);""")
 
-user_table_create = ("""CREATE TABLE IF NOT EXISTS users (user_id int, first_name varchar, last_name varchar, 
-                        gender varchar, level int);""")
+user_table_create = ("""CREATE TABLE IF NOT EXISTS users (userId varchar, firstName varchar, lastName varchar, 
+                        gender varchar, level varchar);""")
 
-song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (song_id int, title varchar, artist_id int, 
-                        year int, duration time);""")
+song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (song_id varchar, title varchar, artist_id varchar, 
+                        year int, duration float);""")
 
-artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (artist_id int, name varchar, location varchar, 
-                          latitude decimal, longitude decimal);""")
+artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (artist_id varchar, name varchar, location varchar, 
+                          latitude varchar, longitude varchar);""")
 
-time_table_create = ("""CREATE TABLE IF NOT EXISTS time (start_time timestamp, hour int, day int, week int, 
-                        month int, year int, weekday bool);""")
+time_table_create = ("""CREATE TABLE IF NOT EXISTS time (start_time bigint, hour int, day int, weekofyear int, 
+                        month int, year int, weekday int);""")
+
+# INSERT RECORDS
+
+songplay_table_insert = ("""INSERT INTO songplays (start_time,
+                            userId, level, song_id, artist_id, 
+                            session_id, location, user_agent) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""")
+
+user_table_insert = ("""INSERT INTO users (userId, firstName, lastName, 
+                        gender, level) VALUES (%s, %s, %s, %s, %s);""")
+
+song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s);""")
+
+artist_table_insert = ("""INSERT INTO artists (artist_id, name, location, latitude, longitude) VALUES (%s, %s, %s, %s, %s);""")
+
+time_table_insert = ("""INSERT INTO time (start_time, hour, day, weekofyear, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s);""")
+
+# FIND SONGS
+
+# This one is a little more complicated since information from the songs table, artists table, and original log file are all needed for the `songplays` table. Since the log file does not specify an ID for either the song or the artist, you'll need to...
+
+# ...get the song ID and artist ID by querying the songs and artists tables to find matches based on 
+# song title, 
+# artist name, and 
+# song duration time.
+
+
+song_select = ("""SELECT songs.song_id, artists.artist_id FROM songs, artists 
+WHERE songs.title = %s
+AND artists.name = %s
+AND songs.duration= %s;""")
+
 
 # QUERY LISTS
 
