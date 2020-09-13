@@ -30,3 +30,14 @@ The ETL pipeline in *etl.py* relies on the database set up done by *create_table
 * **etl.ipynb**: step-by-step walkthrough to produce extract, transform, and load operations for Sparkify's database.
 
 * **test.ipynb**: performs database reads to verify proper execution of write operations from *create_tables.py*.
+
+# Sample query
+
+This query should retrieve one record, since it's a subset of a significantly larger big data set.
+
+```
+SELECT *
+FROM songplays
+WHERE song_id IS NOT NULL
+  AND artist_id IS NOT NULL;
+```
