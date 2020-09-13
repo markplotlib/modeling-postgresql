@@ -8,48 +8,95 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 
 
 # CREATE TABLES
-songplay_table_create = ("""CREATE TABLE IF NOT EXISTS songplays (start_time bigint, 
-                            userId varchar, level varchar, song_id varchar, artist_id varchar, 
-                            session_id int, location varchar , user_agent varchar);""")
 
-user_table_create = ("""CREATE TABLE IF NOT EXISTS users (userId varchar, firstName varchar, lastName varchar, 
-                        gender varchar, level varchar);""")
+user_table_create = ("""
+                        CREATE TABLE IF NOT EXISTS users (
+                            userId varchar PRIMARY KEY, firstName varchar,
+                            lastName varchar, gender varchar, level varchar
+                        );
+""")
 
-song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (song_id varchar, title varchar, artist_id varchar, 
-                        year int, duration float);""")
+song_table_create = ("""
+                        CREATE TABLE IF NOT EXISTS songs (
+                            song_id varchar PRIMARY KEY, title varchar NOT NULL,
+                            artist_id varchar NOT NULL, year int, duration float
+                        );
+""")
 
-artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (artist_id varchar, name varchar, location varchar, 
-                          latitude varchar, longitude varchar);""")
+artist_table_create = ("""
+                            CREATE TABLE IF NOT EXISTS artists (
+                                artist_id varchar PRIMARY KEY, name varchar,
+                                location varchar, latitude varchar, longitude varchar
+                            );
+""")
 
-time_table_create = ("""CREATE TABLE IF NOT EXISTS time (start_time bigint, hour int, day int, weekofyear int, 
-                        month int, year int, weekday int);""")
+time_table_create = ("""
+                        CREATE TABLE IF NOT EXISTS time (
+                            start_time bigint PRIMARY KEY, hour int, day int,
+                            weekofyear int, month int, year int, weekday int
+                        );
+""")
+
+songplay_table_create = ("""
+                            CREATE TABLE IF NOT EXISTS songplays (
+                                start_time bigint, userId varchar, level varchar,
+                                song_id varchar, artist_id varchar,
+                                session_id int NOT NULL, location varchar, user_agent varchar,
+                                PRIMARY KEY (start_time, userId)
+                            );
+""")
 
 # INSERT RECORDS
 
-songplay_table_insert = ("""INSERT INTO songplays (start_time,
-                            userId, level, song_id, artist_id, 
-                            session_id, location, user_agent) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);""")
+songplay_table_insert = ("""
+                            INSERT INTO songplays (
+                                start_time, userId, level, song_id, artist_id,
+                                session_id, location, user_agent
+                            ) VALUES (
+                                %s, %s, %s, %s, %s, %s, %s, %s
+                            ) ON CONFLICT (start_time, userId)
+                            DO NOTHING;
+""")
 
-user_table_insert = ("""INSERT INTO users (userId, firstName, lastName, 
-                        gender, level) VALUES (%s, %s, %s, %s, %s);""")
 
-song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s);""")
+user_table_insert = ("""
+                        INSERT INTO users (
+                            userId, firstName, lastName, gender, level
+                        ) VALUES (
+                            %s, %s, %s, %s, %s
+                        ) ON CONFLICT (userId)
+                        DO NOTHING;
+""")
 
-artist_table_insert = ("""INSERT INTO artists (artist_id, name, location, latitude, longitude) VALUES (%s, %s, %s, %s, %s);""")
+song_table_insert = ("""
+                        INSERT INTO songs (
+                            song_id, title, artist_id, year, duration
+                        ) VALUES (
+                            %s, %s, %s, %s, %s
+                        );
+""")
 
-time_table_insert = ("""INSERT INTO time (start_time, hour, day, weekofyear, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s);""")
+artist_table_insert = ("""
+                            INSERT INTO artists (
+                                artist_id, name, location, latitude, longitude
+                            ) VALUES (
+                                %s, %s, %s, %s, %s
+                            ) ON CONFLICT (artist_id)
+                            DO NOTHING;
+""")
+
+time_table_insert = ("""
+                        INSERT INTO time (
+                            start_time, hour, day, weekofyear, month, year, weekday
+                        ) VALUES (
+                            %s, %s, %s, %s, %s, %s, %s
+                        ) ON CONFLICT (start_time) 
+                        DO NOTHING;
+""")
 
 # FIND SONGS
 
-# This one is a little more complicated since information from the songs table, artists table, and original log file are all needed for the `songplays` table. Since the log file does not specify an ID for either the song or the artist, you'll need to...
-
-# ...get the song ID and artist ID by querying the songs and artists tables to find matches based on 
-# song title, 
-# artist name, and 
-# song duration time.
-
-
-song_select = ("""SELECT songs.song_id, artists.artist_id FROM songs, artists 
+song_select = ("""SELECT songs.song_id, artists.artist_id FROM songs, artists
 WHERE songs.title = %s
 AND artists.name = %s
 AND songs.duration= %s;""")
