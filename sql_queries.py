@@ -26,7 +26,8 @@ song_table_create = ("""
 artist_table_create = ("""
                             CREATE TABLE IF NOT EXISTS artists (
                                 artist_id varchar PRIMARY KEY, name varchar,
-                                location varchar, latitude varchar, longitude varchar
+                                location varchar, latitude varchar,
+                                longitude varchar
                             );
 """)
 
@@ -39,9 +40,10 @@ time_table_create = ("""
 
 songplay_table_create = ("""
                             CREATE TABLE IF NOT EXISTS songplays (
-                                start_time bigint, userId varchar, level varchar,
-                                song_id varchar, artist_id varchar,
-                                session_id int NOT NULL, location varchar, user_agent varchar,
+                                start_time bigint, userId varchar,
+                                level varchar, song_id varchar,
+                                artist_id varchar, session_id int NOT NULL,
+                                location varchar, user_agent varchar,
                                 PRIMARY KEY (start_time, userId)
                             );
 """)
@@ -55,7 +57,7 @@ songplay_table_insert = ("""
                             ) VALUES (
                                 %s, %s, %s, %s, %s, %s, %s, %s
                             ) ON CONFLICT (start_time, userId)
-                            DO NOTHING;
+                            DO UPDATE SET level=EXCLUDED.level;
 """)
 
 
@@ -87,10 +89,11 @@ artist_table_insert = ("""
 
 time_table_insert = ("""
                         INSERT INTO time (
-                            start_time, hour, day, weekofyear, month, year, weekday
+                            start_time, hour, day, weekofyear,
+                            month, year, weekday
                         ) VALUES (
                             %s, %s, %s, %s, %s, %s, %s
-                        ) ON CONFLICT (start_time) 
+                        ) ON CONFLICT (start_time)
                         DO NOTHING;
 """)
 
@@ -101,9 +104,16 @@ WHERE songs.title = %s
 AND artists.name = %s
 AND songs.duration= %s;""")
 
+sample_query = ("""
+SELECT * FROM songplays
+WHERE song_id IS NOT NULL
+AND artist_id IS NOT NULL;""")
 
 # QUERY LISTS
 
-create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create,
+create_table_queries = [songplay_table_create, user_table_create,
+                        song_table_create, artist_table_create,
                         time_table_create]
-drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
+
+drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop,
+                      artist_table_drop, time_table_drop]
