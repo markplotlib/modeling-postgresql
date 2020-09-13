@@ -57,7 +57,7 @@ songplay_table_insert = ("""
                             ) VALUES (
                                 %s, %s, %s, %s, %s, %s, %s, %s
                             ) ON CONFLICT (start_time, userId)
-                            DO UPDATE SET level=EXCLUDED.level;
+                            DO NOTHING;
 """)
 
 
@@ -67,7 +67,7 @@ user_table_insert = ("""
                         ) VALUES (
                             %s, %s, %s, %s, %s
                         ) ON CONFLICT (userId)
-                        DO NOTHING;
+                        DO UPDATE SET level=EXCLUDED.level;
 """)
 
 song_table_insert = ("""
@@ -75,7 +75,10 @@ song_table_insert = ("""
                             song_id, title, artist_id, year, duration
                         ) VALUES (
                             %s, %s, %s, %s, %s
-                        );
+                        ) ON CONFLICT (song_id)
+                        DO UPDATE SET
+                            year=EXCLUDED.year,
+                            duration=EXCLUDED.duration;
 """)
 
 artist_table_insert = ("""
@@ -84,7 +87,11 @@ artist_table_insert = ("""
                             ) VALUES (
                                 %s, %s, %s, %s, %s
                             ) ON CONFLICT (artist_id)
-                            DO NOTHING;
+                            DO UPDATE SET
+                                name=EXCLUDED.name,
+                                location=EXCLUDED.location,
+                                latitude=EXCLUDED.latitude,
+                                longitude=EXCLUDED.longitude;
 """)
 
 time_table_insert = ("""
@@ -94,7 +101,14 @@ time_table_insert = ("""
                         ) VALUES (
                             %s, %s, %s, %s, %s, %s, %s
                         ) ON CONFLICT (start_time)
-                        DO NOTHING;
+                        DO UPDATE SET
+                            start_time=EXCLUDED.start_time,
+                            hour=EXCLUDED.hour,
+                            day=EXCLUDED.day,
+                            weekofyear=EXCLUDED.weekofyear,
+                            month=EXCLUDED.month,
+                            year=EXCLUDED.year,
+                            weekday=EXCLUDED.weekday;
 """)
 
 # FIND SONGS
