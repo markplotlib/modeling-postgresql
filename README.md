@@ -6,6 +6,7 @@ This ETL pipeline employs a **star schema** for the database. This star schema h
 
 The **dimension tables**, situated at the star's peripheries, are tables named for `users`, `songs`, `artists`, and `time` (timestamps). This real musical data, stored in 71 JSON files, comes from the [Million Song Dataset](http://millionsongdataset.com/).
 
+![image info](./img/sparkify_ERD.png)
 
 # Execution Instructions
 
