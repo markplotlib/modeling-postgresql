@@ -1,6 +1,10 @@
+<img src="./img/postgres.jfif" alt="PostgreSQL" title="PostgreSQL" width="500">
+
 # ETL Data Modeling: *Sparkify* Streaming Music
 
 This project builds an ETL (*extract transform load*) pipeline to perform big data operations for a fictitious streaming music app, Sparkify. This ETL pipeline uses a PostgreSQL database optimized for read queries, i.e. OLAP (Online Analytical Processing).
+
+<img src="./img/etl.jpg" alt="Amazon S3" width="500" title="Amazon S3" align="middle" />
 
 This ETL pipeline employs a **star schema** for the database. This star schema has a log table of `songplays` as its **fact table** at the star center. Data stored in JSON format illustrate song play data from 30 event log files, spanning the month of November 2018. This data is artificially produced using [eventsim](https://github.com/Interana/eventsim).
 
